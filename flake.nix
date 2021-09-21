@@ -27,5 +27,14 @@
           inherit (nixpkgs) lib;
           inherit naersk fenix;
         };
+
+        defaultApp = self.apps.${system}.nix-utils;
+
+        apps = {
+          nix-utils = {
+            type = "app";
+            program = "${self.packages.${system}.nix-utils}/bin/nix-utils";
+          };
+        };
       });
 }
