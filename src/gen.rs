@@ -25,7 +25,10 @@ fn gen_files<P: AsRef<Path>, C: AsRef<[u8]>>(ps: &[(P, C)]) -> Result<(), String
                 r
             })
             .map_err(|e| format!("{}", e)),
-        Some(name) => Err(format!("Error: could not generate {}, file already exists", name.as_ref().display())),
+        Some(name) => Err(format!(
+            "Error: could not generate {}, file already exists",
+            name.as_ref().display()
+        )),
     }
 }
 

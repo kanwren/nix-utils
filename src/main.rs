@@ -1,5 +1,6 @@
 use clap::{App, AppSettings};
 
+mod fetcher_cache;
 mod flake;
 mod gcroots;
 mod gen;
@@ -10,6 +11,7 @@ fn main() {
         .subcommand(gen::subcommand())
         .subcommand(gcroots::subcommand())
         .subcommand(flake::subcommand())
+        .subcommand(fetcher_cache::subcommand())
         .setting(AppSettings::SubcommandRequiredElseHelp)
         .get_matches();
 
@@ -17,7 +19,8 @@ fn main() {
         ("gen", Some(matches)) => gen::handle(matches),
         ("gcroots", Some(matches)) => gcroots::handle(matches),
         ("flake", Some(matches)) => flake::handle(matches),
-        (_, _) => panic!("Unreachable"),
+        ("fetcher-cache", Some(matches)) => fetcher_cache::handle(matches),
+        (_, _) => unreachable!(),
     };
 
     if let Err(msg) = res {
