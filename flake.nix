@@ -20,20 +20,19 @@
   outputs = { self, nixpkgs, flake-utils, naersk, fenix }:
     flake-utils.lib.eachDefaultSystem (system:
       {
-        defaultPackage = self.packages.${system}.nix-utils;
-
-        packages.nix-utils = import ./default.nix {
-          inherit system;
-          inherit (nixpkgs) lib;
-          inherit naersk fenix;
+        packages = {
+          default = self.packages.${system}.nix-utils;
+          nix-utils = import ./default.nix {
+            inherit system;
+            inherit (nixpkgs) lib;
+            inherit naersk fenix;
+          };
         };
 
-        defaultApp = self.apps.${system}.nix-utils;
-
         apps = {
-          nix-utils = {
-            type = "app";
-            program = "${self.packages.${system}.nix-utils}/bin/nix-utils";
+          default = self.apps.${system}.nix-utils;
+          nix-utils = flake-utils.lib.mkApp {
+            drv = self.packages.${system}.nix-utils;
           };
         };
       });

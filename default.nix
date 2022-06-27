@@ -17,6 +17,7 @@ let
 in
 naersk-lib.buildPackage {
   src = ./.;
+  pname = "nix-utils";
   meta = with lib; {
     description = "Tool providing miscellaneous personal nix utilities";
     platforms = platforms.linux;
