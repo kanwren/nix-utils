@@ -10,10 +10,7 @@
     };
     fenix = {
       url = "github:nix-community/fenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        naersk.follows = "naersk";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
